@@ -21,15 +21,15 @@ const Footer = () => {
                </aside>
                <nav>
                     <h6 className="footer-title">About</h6>
-                    <Link className="link link-hover">Home</Link>
-                    <Link className="link link-hover">Service</Link>
-                    <Link className="link link-hover">Contact</Link>
+                    <Link to={'/'} className="link link-hover">Home</Link>
+                    <Link to={'/service'} className="link link-hover">Service</Link>
+                    <Link to={'/contact'} className="link link-hover">Contact</Link>
 
                </nav>
                <nav>
                     <h6 className="footer-title">Company</h6>
                     <Link className="link link-hover">Why Car Doctor </Link>
-                    <Link className="link link-hover">About</Link>
+                    <Link to={'/about'} className="link link-hover">About</Link>
 
                </nav>
                <nav>
