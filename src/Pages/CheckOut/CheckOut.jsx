@@ -21,7 +21,7 @@ const CheckOut = () => {
 
           const booking = {
                customerName: name,
-               customerEmail: email,
+               email,
                serviceDate: date,
                servicePrice: price,
                serviceTitle: title,
