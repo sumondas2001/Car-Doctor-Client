@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg"
 
 import { ImFacebook2 } from "react-icons/im";
@@ -6,9 +6,13 @@ import { FaLinkedin } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
+import axios from "axios";
 
 const Login = () => {
      const { singInUser } = useContext(AuthContext)
+     const location = useLocation();
+     const navigate = useNavigate();
+     console.log(location)
      const handelLogin = event => {
           event.preventDefault();
           const from = event.target;
@@ -18,8 +22,17 @@ const Login = () => {
 
           singInUser(email, password)
                .then(result => {
-                    const user = result.user;
-                    console.log(user)
+                    const logInUser = result.user;
+                    console.log(logInUser);
+                    const user = { email };
+                    axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                         .then(res => {
+                              console.log(res.data)
+                              if (res.data.success) {
+                                   navigate(location?.state ? location?.state : '/');
+
+                              }
+                         })
                })
                .catch(error => {
 

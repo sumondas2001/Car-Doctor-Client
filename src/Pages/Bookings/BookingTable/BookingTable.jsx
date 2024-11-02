@@ -1,7 +1,7 @@
 
 
-const BookingTable = ({ booking, handelDelete }) => {
-     const { img, serviceTitle, serviceDate, servicePrice, customerName, email, _id } = booking;
+const BookingTable = ({ booking, handelDelete, handelBookingConfirm, }) => {
+     const { img, serviceTitle, serviceDate, servicePrice, customerName, email, _id, status } = booking;
 
 
 
@@ -47,7 +47,10 @@ const BookingTable = ({ booking, handelDelete }) => {
                <td>{serviceDate}</td>
 
                <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
+                    {
+                         status === 'confirm' ? <button className="btn btn-primary btn-xs">Confirmed</button> :
+                              <button onClick={() => handelBookingConfirm(_id)} className="btn btn-error btn-xs">Please Confirm</button>
+                    }
                </th>
           </tr>
      );

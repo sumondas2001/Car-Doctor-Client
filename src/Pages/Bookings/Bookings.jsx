@@ -2,16 +2,22 @@ import checkOutImg from "../../assets/images/checkout/checkout.png"
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import BookingTable from "./BookingTable/BookingTable";
+import axios from "axios";
 
 
 const Bookings = () => {
      const { user } = useContext(AuthContext);
      const [bookings, setBookings] = useState([]);
      useEffect(() => {
-          fetch(`http://localhost:5000/bookings?email=${user.email}`)
-               .then(res => res.json())
-               .then(data => setBookings(data))
-     }, [user.email])
+          // fetch(`http://localhost:5000/bookings?email=${user.email}`)
+          //      .then(res => res.json())
+          //      .then(data => setBookings(data))
+
+          axios.get(`http://localhost:5000/bookings?email=${user.email}`, { withCredentials: true })
+               .then(res => {
+                    setBookings(res.data)
+               })
+     }, [user.email]);
 
 
      const handelDelete = id => {
@@ -32,7 +38,28 @@ const Bookings = () => {
                          }
                     })
           }
-     }
+     };
+
+     const handelBookingConfirm = id => {
+          fetch(`http://localhost:5000/bookings/${id}`, {
+               method: 'PATCH',
+               headers: {
+                    'content-type': 'application/json'
+               },
+               body: JSON.stringify({ status: 'confirm' })
+          })
+               .then(res => res.json())
+               .then(data => {
+                    console.log(data)
+                    if (data.modifiedCount > 0) {
+                         const remaining = bookings.filter(booking => booking._id !== id);
+                         const updated = bookings.find(booking => booking._id === id);
+                         updated.status = 'confirm';
+                         const newBooking = [updated, ...remaining];
+                         setBookings(newBooking);
+                    }
+               })
+     };
 
      return (
           <div>
@@ -69,6 +96,7 @@ const Bookings = () => {
                                         key={booking._id}
                                         booking={booking}
                                         handelDelete={handelDelete}
+                                        handelBookingConfirm={handelBookingConfirm}
                                    >
 
                                    </BookingTable>)
