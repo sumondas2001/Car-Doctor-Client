@@ -1,17 +1,20 @@
-import { useEffect, useState } from "react";
 import Service from "./Service";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useEffect, useState } from "react";
 
 
 const Services = () => {
      const [services, setServices] = useState([]);
 
+     const axiosSecure = useAxiosSecure();
+
      useEffect(() => {
-          fetch("http://localhost:5000/services")
-               .then(res => res.json())
-               .then(data => {
-                    setServices(data)
+          axiosSecure.get('/services')
+               .then(res => {
+                    setServices(res.data)
                })
-     }, [])
+     }, [axiosSecure])
+
      return (
           <div className="text-center space-y-4 mt-10 mb-6">
                <h1 className="text-xl font-semibold text-[#FF3811]">Service</h1>

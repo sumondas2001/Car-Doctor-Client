@@ -1,15 +1,15 @@
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import login from "../../assets/images/login/login.svg"
 
 import { ImFacebook2 } from "react-icons/im";
 import { FaLinkedin } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
-     const { singInUser } = useContext(AuthContext)
+     const { singInUser } = useAuth();
      const location = useLocation();
      const navigate = useNavigate();
      console.log(location)

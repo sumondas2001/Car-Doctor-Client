@@ -1,23 +1,26 @@
 import checkOutImg from "../../assets/images/checkout/checkout.png"
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+import { useEffect, useState } from "react";
+
 import BookingTable from "./BookingTable/BookingTable";
-import axios from "axios";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const Bookings = () => {
-     const { user } = useContext(AuthContext);
+     const { user } = useAuth();
      const [bookings, setBookings] = useState([]);
+     const axiosSecure = useAxiosSecure();
+     const url = `/bookings?email=${user.email}`
      useEffect(() => {
           // fetch(`http://localhost:5000/bookings?email=${user.email}`)
           //      .then(res => res.json())
           //      .then(data => setBookings(data))
 
-          axios.get(`http://localhost:5000/bookings?email=${user.email}`, { withCredentials: true })
+          axiosSecure.get(url)
                .then(res => {
                     setBookings(res.data)
                })
-     }, [user.email]);
+     }, [axiosSecure, url]);
 
 
      const handelDelete = id => {

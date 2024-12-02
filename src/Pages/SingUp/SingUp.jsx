@@ -4,11 +4,11 @@ import login from "../../assets/images/login/login.svg"
 import { ImFacebook2 } from "react-icons/im";
 import { FaLinkedin } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+
+import useAuth from "../../hooks/useAuth";
 
 const SingUp = () => {
-     const { createUser } = useContext(AuthContext);
+     const { createUser } = useAuth();
 
      const handelSingUp = event => {
           event.preventDefault();
