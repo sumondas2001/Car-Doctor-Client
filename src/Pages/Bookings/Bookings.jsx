@@ -12,7 +12,7 @@ const Bookings = () => {
      const axiosSecure = useAxiosSecure();
      const url = `/bookings?email=${user.email}`
      useEffect(() => {
-          // fetch(`http://localhost:5000/bookings?email=${user.email}`)
+          // fetch(`https://car-doctor-server-finle.vercel.app/bookings?email=${user.email}`)
           //      .then(res => res.json())
           //      .then(data => setBookings(data))
 
@@ -27,7 +27,7 @@ const Bookings = () => {
           const proceed = confirm("Are You Sure Want To Delete");
 
           if (proceed) {
-               fetch(`http://localhost:5000/bookings/${id}`, {
+               fetch(`https://car-doctor-server-finle.vercel.app/bookings/${id}`, {
                     method: 'DELETE'
                })
                     .then(res => res.json())
@@ -44,7 +44,7 @@ const Bookings = () => {
      };
 
      const handelBookingConfirm = id => {
-          fetch(`http://localhost:5000/bookings/${id}`, {
+          fetch(`https://car-doctor-server-finle.vercel.app/bookings/${id}`, {
                method: 'PATCH',
                headers: {
                     'content-type': 'application/json'
@@ -53,7 +53,7 @@ const Bookings = () => {
           })
                .then(res => res.json())
                .then(data => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.modifiedCount > 0) {
                          const remaining = bookings.filter(booking => booking._id !== id);
                          const updated = bookings.find(booking => booking._id === id);

@@ -12,22 +12,22 @@ const Login = () => {
      const { singInUser } = useAuth();
      const location = useLocation();
      const navigate = useNavigate();
-     console.log(location)
+     // console.log(location)
      const handelLogin = event => {
           event.preventDefault();
           const from = event.target;
           const email = from.email.value;
           const password = from.password.value;
-          console.log(name, email, password);
+          // console.log(name, email, password);
 
           singInUser(email, password)
                .then(result => {
-                    const logInUser = result.user;
-                    console.log(logInUser);
+                    const (logInUser) = result.user;
+                    // console.log(logInUser);
                     const user = { email };
-                    axios.post('http://localhost:5000/jwt', user, { withCredentials: true })
+                    axios.post('https://car-doctor-server-finle.vercel.app/jwt', user, { withCredentials: true })
                          .then(res => {
-                              console.log(res.data)
+                              // console.log(res.data)
                               if (res.data.success) {
                                    navigate(location?.state ? location?.state : '/');
 
